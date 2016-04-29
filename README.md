@@ -70,8 +70,8 @@ $ eris-cm make myChain --account-types=Root:1,Developer:0,Validator:0,Participan
 $ eris-cm make myChain --csv /path/to/csv -- will use the csv file to make your chain named myChain using eris-keys defaults (non-interactive)
 
 Flags:
-  -t, --account-types=[]: what number of account types should we use? find these in ~/.eris/chains/account_types; incompatible with and overrides chain-type; default respects $ERIS_CHAINMANAGER_ACCOUNTTYPES
-  -c, --chain-type="": which chain type definition should we use? find these in ~/.eris/chains/chain_types; default respects $ERIS_CHAINMANAGER_CHAINTYPE
+  -t, --account-types=[]: what number of account types should we use? find these in ~/.eris/chains/account-types; incompatible with and overrides chain-type; default respects $ERIS_CHAINMANAGER_ACCOUNTTYPES
+  -c, --chain-type="": which chain type definition should we use? find these in ~/.eris/chains/chain-types; default respects $ERIS_CHAINMANAGER_CHAINTYPE
   -s, --csv-file="": csv file in the form `account-type,number,tokens,toBond,perms; default respects $ERIS_CHAINMANAGER_CSVFILE
   -h, --help[=false]: help for make
   -k, --keys-server="http://localhost:4767": keys server which should be used to generate keys; default respects $ERIS_KEYS_PATH

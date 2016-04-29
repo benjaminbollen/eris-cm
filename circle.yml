@@ -5,6 +5,7 @@ machine:
     DOCKER_VERSION: 1.9.1
     DOCKER_MACHINE_VERSION: 0.6.0
     ERIS_CLI_BRANCH: develop
+    GO15VENDOREXPERIMENT: 1
   post:
     - git config --global user.email "billings@erisindustries.com"
     - git config --global user.name "Billings the Bot"
@@ -18,7 +19,7 @@ dependencies:
     - sudo service docker start
     - sudo curl -sSL -o /usr/local/bin/docker-machine https://github.com/docker/machine/releases/download/v$DOCKER_MACHINE_VERSION/docker-machine-linux-x86_64; sudo chmod 0755 /usr/local/bin/docker-machine
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
-    - "go get github.com/eris-ltd/eris-cli; cd ${GOPATH%%:*}/src/github.com/eris-ltd/eris-cli && git checkout origin/$ERIS_CLI_BRANCH && go install ./cmd/eris"
+    - "go get github.com/eris-ltd/eris-cli/cmd/eris; cd ${GOPATH%%:*}/src/github.com/eris-ltd/eris-cli && git checkout origin/$ERIS_CLI_BRANCH && go install ./cmd/eris"
 
 test:
   override:

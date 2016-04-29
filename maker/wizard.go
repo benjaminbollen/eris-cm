@@ -22,14 +22,14 @@ add those groupings into the genesis.json.
 Remember, I'm only useful when you are making a new chain. After your chain
 is established then you can modify the permissions using other eris tooling.
 
-Are you ready to make your own chain (Y/n)? `
+Are you ready to make your own chain (y/n)? `
 }
 
 func ChainsMakePrelimQuestions() map[string]string {
 	questions := map[string]string{
-		"dryrun": "Would you like to review each of the account groups before making the chain? (y/N) ",
-		"tokens": "Do you care about setting the number of tokens for each account type? If not, the marmots will set reasonable defaults for you. (y/N) ",
-		"manual": "After the built in account groups would you like to make your manual (own) account groups with fine tuned permissions? (y/N) ",
+		"dryrun": "Would you like to review each of the account groups before making the chain? (y/n) ",
+		"tokens": "Do you care about setting the number of tokens for each account type? If not, the marmots will set reasonable defaults for you. (y/n) ",
+		"manual": "After the built in account groups would you like to make your manual (own) account groups with fine tuned permissions? (y/n) ",
 	}
 	return questions
 }
@@ -113,5 +113,5 @@ func AccountTypeManualSave() string {
 }
 
 func AccountTypeManualAnother() string {
-	return "Do you want to make another manual group (y/N) "
+	return "Do you want to make another manual group (y/n) "
 }
