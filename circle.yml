@@ -22,8 +22,11 @@ dependencies:
     - "go get github.com/eris-ltd/eris-cli/cmd/eris; cd ${GOPATH%%:*}/src/github.com/eris-ltd/eris-cli && git checkout origin/$ERIS_CLI_BRANCH && go install ./cmd/eris"
 
 test:
+  pre:
+    - go get github.com/Masterminds/glide
+    - cd $REPO && glide install
   override:
-    - "cd ${GOPATH%%:*}/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/cmd/eris-cm && go install"
+    - cd $REPO && go install ./cmd/eris-cm
     - "tests/circle_test.sh | tee $CIRCLE_ARTIFACTS/output.log; test ${PIPESTATUS[0]} -eq 0"
 
 deployment:
