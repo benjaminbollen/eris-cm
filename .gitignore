@@ -25,4 +25,5 @@ _testmain.go
 
 docs/account_types.md
 docs/chain_types.md
-docs/eris-cm
+docs/eris-cmvendor
+vendor
