@@ -1,5 +1,5 @@
 hash: 8dd7b8200a6e6d5ddd83ca9deb61a1bb91728f8283a15659bbc28087b14cb34d
-updated: 2016-05-13T18:45:31.920911467+01:00
+updated: 2016-05-13T21:13:32.781396849+01:00
 imports:
 - name: github.com/agl/ed25519
   version: d2b94fd789ea21d12fac1a4443dd3a3f79cda72c
@@ -37,65 +37,10 @@ imports:
   subpackages:
   - crypto
   - eris-keys
-  - Godeps/_workspace/src/github.com/eris-ltd/common/go/common
-  - Godeps/_workspace/src/github.com/eris-ltd/common/go/log
-  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/account
-  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/wire
-  - Godeps/_workspace/src/github.com/howeyc/gopass
-  - Godeps/_workspace/src/github.com/rs/cors
-  - Godeps/_workspace/src/github.com/spf13/cobra
-  - Godeps/_workspace/src/golang.org/x/crypto/ripemd160
-  - Godeps/_workspace/src/github.com/mitchellh/go-homedir
-  - Godeps/_workspace/src/github.com/Sirupsen/logrus
-  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/common
-  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/merkle
-  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/permission/types
-  - Godeps/_workspace/src/github.com/tendermint/ed25519
-  - Godeps/_workspace/src/github.com/tendermint/ed25519/extra25519
-  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/logger
-  - Godeps/_workspace/src/github.com/tendermint/log15
-  - Godeps/_workspace/src/golang.org/x/crypto/ssh/terminal
-  - Godeps/_workspace/src/github.com/inconshreveable/mousetrap
-  - Godeps/_workspace/src/github.com/spf13/pflag
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid
-  - Godeps/_workspace/src/golang.org/x/crypto/scrypt
   - crypto/ed25519
   - crypto/randentropy
   - crypto/secp256k1
   - crypto/sha3
-  - Godeps/_workspace/src/golang.org/x/sys/unix
-  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/db
-  - Godeps/_workspace/src/github.com/agl/ed25519/edwards25519
-  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/config
-  - Godeps/_workspace/src/github.com/inconshreveable/log15/stack
-  - Godeps/_workspace/src/github.com/inconshreveable/log15/term
-  - Godeps/_workspace/src/github.com/mattn/go-colorable
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/dcesecurity
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/layout
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/namebased
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/namebased/md5
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/namebased/sha1
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/random
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/timebased
-  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/version
-  - Godeps/_workspace/src/golang.org/x/crypto/pbkdf2
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/errors
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/opt
-  - Godeps/_workspace/src/github.com/naoina/toml
-  - Godeps/_workspace/src/github.com/mattn/go-isatty
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/cache
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/comparer
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/filter
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/iterator
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/journal
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/memdb
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/storage
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/table
-  - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/util
-  - Godeps/_workspace/src/github.com/naoina/go-stringutil
-  - Godeps/_workspace/src/github.com/naoina/toml/ast
-  - Godeps/_workspace/src/github.com/syndtr/gosnappy/snappy
 - name: github.com/eris-ltd/eris-pm
   version: bc88163de4ebae7e039ecd0e8ea2b36592171185
 - name: github.com/fsouza/go-dockerclient
@@ -176,7 +121,7 @@ imports:
   - scrypt
   - ssh/terminal
 - name: golang.org/x/sys
-  version: e82cb4d7dffc35bcec7bc8bf9e402377e0ecf3f4
+  version: 33267e036fd93fcd26ea95b7bdaf2d8306cb743c
   subpackages:
   - unix
 - name: gopkg.in/yaml.v2

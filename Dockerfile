@@ -15,6 +15,7 @@ RUN apt-get update && \
 ENV REPO $GOPATH/src/github.com/eris-ltd/eris-cm
 COPY . $REPO
 WORKDIR $REPO/cmd/eris-cm
+ENV GO15VENDOREXPERIMENT 1
 RUN go build -o /usr/local/bin/eris-cm
 RUN chown --recursive $USER:$USER $REPO
 
