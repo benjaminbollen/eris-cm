@@ -8,6 +8,7 @@ import:
   subpackages:
   - crypto
   - eris-keys
+- package: github.com/eris-ltd/eris-pm
 - package: github.com/BurntSushi/toml
   version: 056c9bc7be7190eaa7715723883caffa5f8fa3e4
 - package: github.com/Sirupsen/logrus

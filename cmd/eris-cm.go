@@ -8,9 +8,9 @@ import (
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/version"
 
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	logger "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/log"
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/spf13/cobra"
+	log "github.com/Sirupsen/logrus"
+	logger "github.com/eris-ltd/common/go/log"
+	"github.com/spf13/cobra"
 )
 
 const VERSION = version.VERSION

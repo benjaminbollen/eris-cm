@@ -7,10 +7,10 @@ import (
 	"github.com/eris-ltd/eris-cm/maker"
 	"github.com/eris-ltd/eris-cm/util"
 
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	. "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
-	keys "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/eris-keys/eris-keys"
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/spf13/cobra"
+	log "github.com/Sirupsen/logrus"
+	. "github.com/eris-ltd/common/go/common"
+	keys "github.com/eris-ltd/eris-keys/eris-keys"
+	"github.com/spf13/cobra"
 )
 
 var MakerCmd = &cobra.Command{

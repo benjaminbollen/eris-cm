@@ -1,71 +1,89 @@
-hash: 062d4031287c2ea9279df7a8e838d6c4e682de18a0941967be87ee7935a8f1f2
-updated: 2016-05-06T19:00:18.257889299+01:00
+hash: 8dd7b8200a6e6d5ddd83ca9deb61a1bb91728f8283a15659bbc28087b14cb34d
+updated: 2016-05-12T17:28:13.657397734+01:00
 imports:
 - name: github.com/agl/ed25519
   version: d2b94fd789ea21d12fac1a4443dd3a3f79cda72c
   subpackages:
   - edwards25519
+- name: github.com/Azure/go-ansiterm
+  version: 388960b655244e76e24c75f48631564eaefade62
+  subpackages:
+  - winterm
+- name: github.com/bugsnag/bugsnag-go
+  version: 0d5b6e579efe7c6f2dc142602672061c29fcc133
+  subpackages:
+  - errors
+- name: github.com/bugsnag/osext
+  version: 0dd3f918b21bec95ace9dc86c7e70266cfc5c702
+- name: github.com/bugsnag/panicwrap
+  version: d6191e27ad06236eaad65d79e49a08b03b9f8029
 - name: github.com/BurntSushi/toml
   version: 056c9bc7be7190eaa7715723883caffa5f8fa3e4
+- name: github.com/docker/docker
+  version: e9117578a7837eda31d690d5e51d09d43a6a8fca
+  subpackages:
+  - pkg/term
+  - pkg/system
+  - pkg/term/windows
+- name: github.com/docker/go-units
+  version: 5d2041e26a699eaca682e2ea41c8f891e1060444
 - name: github.com/eris-ltd/common
-  version: 31d06f51b52a9f2e841db234eb53997f2e4cd860
+  version: 07ee307d784deee659d42b92ad698a45931adb69
   subpackages:
   - go/common
   - go/log
-- name: github.com/eris-ltd/eris-cm
-  version: bf810d0775be1f6efb936a2b3a1f679431f7f88f
+- name: github.com/eris-ltd/eris-keys
+  version: a6abd41429e08802098165b32f81edb5a24cc025
   subpackages:
-  - Godeps/_workspace/src/github.com/Sirupsen/logrus
+  - crypto
+  - eris-keys
   - Godeps/_workspace/src/github.com/eris-ltd/common/go/common
   - Godeps/_workspace/src/github.com/eris-ltd/common/go/log
-  - Godeps/_workspace/src/github.com/eris-ltd/eris-keys/eris-keys
-  - Godeps/_workspace/src/github.com/spf13/cobra
-  - definitions
-  - maker
-  - util
-  - version
-  - cmd
-  - Godeps/_workspace/src/github.com/BurntSushi/toml
-  - Godeps/_workspace/src/github.com/spf13/viper
-  - Godeps/_workspace/src/github.com/mitchellh/go-homedir
-  - Godeps/_workspace/src/code.google.com/p/go.crypto/ripemd160
-  - Godeps/_workspace/src/github.com/eris-ltd/eris-keys/crypto
+  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/account
+  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/wire
   - Godeps/_workspace/src/github.com/howeyc/gopass
   - Godeps/_workspace/src/github.com/rs/cors
-  - Godeps/_workspace/src/github.com/tendermint/tendermint/account
-  - Godeps/_workspace/src/github.com/tendermint/tendermint/wire
-  - Godeps/_workspace/src/github.com/spf13/pflag
-  - Godeps/_workspace/src/github.com/kr/pretty
-  - Godeps/_workspace/src/github.com/magiconair/properties
-  - Godeps/_workspace/src/github.com/mitchellh/mapstructure
-  - Godeps/_workspace/src/github.com/spf13/cast
-  - Godeps/_workspace/src/github.com/spf13/jwalterweatherman
-  - Godeps/_workspace/src/gopkg.in/yaml.v2
-  - Godeps/_workspace/src/code.google.com/p/go-uuid/uuid
-  - Godeps/_workspace/src/github.com/eris-ltd/eris-keys/crypto/randentropy
-  - Godeps/_workspace/src/github.com/eris-ltd/eris-keys/crypto/secp256k1
-  - Godeps/_workspace/src/github.com/eris-ltd/eris-keys/crypto/sha3
-  - Godeps/_workspace/src/github.com/tendermint/ed25519
-  - Godeps/_workspace/src/golang.org/x/crypto/scrypt
-  - Godeps/_workspace/src/golang.org/x/crypto/ssh/terminal
-  - Godeps/_workspace/src/github.com/tendermint/ed25519/extra25519
-  - Godeps/_workspace/src/github.com/tendermint/tendermint/common
-  - Godeps/_workspace/src/github.com/tendermint/tendermint/merkle
-  - Godeps/_workspace/src/github.com/tendermint/tendermint/permission/types
+  - Godeps/_workspace/src/github.com/spf13/cobra
   - Godeps/_workspace/src/golang.org/x/crypto/ripemd160
+  - Godeps/_workspace/src/github.com/mitchellh/go-homedir
+  - Godeps/_workspace/src/github.com/Sirupsen/logrus
+  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/common
+  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/merkle
+  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/permission/types
+  - Godeps/_workspace/src/github.com/tendermint/ed25519
+  - Godeps/_workspace/src/github.com/tendermint/ed25519/extra25519
+  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/logger
   - Godeps/_workspace/src/github.com/tendermint/log15
-  - Godeps/_workspace/src/github.com/tendermint/tendermint/logger
-  - Godeps/_workspace/src/github.com/kr/text
+  - Godeps/_workspace/src/golang.org/x/crypto/ssh/terminal
+  - Godeps/_workspace/src/github.com/inconshreveable/mousetrap
+  - Godeps/_workspace/src/github.com/spf13/pflag
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid
+  - Godeps/_workspace/src/golang.org/x/crypto/scrypt
+  - crypto/ed25519
+  - crypto/randentropy
+  - crypto/secp256k1
+  - crypto/sha3
+  - Godeps/_workspace/src/golang.org/x/sys/unix
+  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/db
   - Godeps/_workspace/src/github.com/agl/ed25519/edwards25519
-  - Godeps/_workspace/src/golang.org/x/crypto/pbkdf2
-  - Godeps/_workspace/src/github.com/tendermint/tendermint/db
+  - Godeps/_workspace/src/github.com/eris-ltd/tendermint/config
   - Godeps/_workspace/src/github.com/inconshreveable/log15/stack
   - Godeps/_workspace/src/github.com/inconshreveable/log15/term
   - Godeps/_workspace/src/github.com/mattn/go-colorable
-  - Godeps/_workspace/src/github.com/tendermint/tendermint/config
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/dcesecurity
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/layout
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/namebased
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/namebased/md5
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/namebased/sha1
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/random
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/timebased
+  - Godeps/_workspace/src/github.com/wayn3h0/go-uuid/internal/version
+  - Godeps/_workspace/src/golang.org/x/crypto/pbkdf2
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/errors
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/opt
+  - Godeps/_workspace/src/github.com/naoina/toml
+  - Godeps/_workspace/src/github.com/mattn/go-isatty
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/cache
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/comparer
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/filter
@@ -75,12 +93,11 @@ imports:
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/storage
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/table
   - Godeps/_workspace/src/github.com/syndtr/goleveldb/leveldb/util
+  - Godeps/_workspace/src/github.com/naoina/go-stringutil
+  - Godeps/_workspace/src/github.com/naoina/toml/ast
   - Godeps/_workspace/src/github.com/syndtr/gosnappy/snappy
-- name: github.com/eris-ltd/eris-keys
-  version: 3cdffbb11309285596628195f041c6d1808b3459
-  subpackages:
-  - crypto
-  - eris-keys
+- name: github.com/eris-ltd/eris-pm
+  version: bc88163de4ebae7e039ecd0e8ea2b36592171185
 - name: github.com/fsouza/go-dockerclient
   version: ef410296f87750305e1e1acf9ad2ba3833dcb004
   subpackages:
@@ -110,8 +127,6 @@ imports:
   version: d5929c67198951106f49f7ea425198d0f1a08f7f
 - name: github.com/mattn/go-colorable
   version: 043ae16291351db8465272edf465c9f388161627
-- name: github.com/mattn/go-isatty
-  version: 56b76bdf51f7708750eac80fa38b952bb9f32639
 - name: github.com/mitchellh/go-homedir
   version: df55a15e5ce646808815381b3db47a8c66ea62f4
 - name: github.com/mitchellh/mapstructure
@@ -161,7 +176,7 @@ imports:
   - scrypt
   - ssh/terminal
 - name: golang.org/x/sys
-  version: b776ec39b3e54652e09028aaaaac9757f4f8211a
+  version: e82cb4d7dffc35bcec7bc8bf9e402377e0ecf3f4
   subpackages:
   - unix
 - name: gopkg.in/yaml.v2

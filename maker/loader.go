@@ -8,9 +8,9 @@ import (
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/util"
 
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	. "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/spf13/viper"
+	log "github.com/Sirupsen/logrus"
+	. "github.com/eris-ltd/common/go/common"
+	"github.com/spf13/viper"
 )
 
 func LoadAccountTypes() ([]*definitions.AccountType, error) {

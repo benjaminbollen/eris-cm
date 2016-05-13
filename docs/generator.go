@@ -10,8 +10,8 @@ import (
 	commands "github.com/eris-ltd/eris-cm/cmd"
 	"github.com/eris-ltd/eris-cm/version"
 
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/BurntSushi/toml"
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
+	"github.com/BurntSushi/toml"
+	"github.com/eris-ltd/common/go/common"
 )
 
 var RENDER_DIR = fmt.Sprintf("./docs/eris-cm/%s/", version.VERSION)
