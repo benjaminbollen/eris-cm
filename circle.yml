@@ -25,6 +25,8 @@ test:
   pre:
     - go get github.com/Masterminds/glide
     - cd $REPO && glide install
+    - rm -rf $REPO/vendor/github.com/eris-ltd/common/vendor/github.com/spf13/cobra
+    - rm -rf $REPO/vendor/github.com/eris-ltd/common/vendor/github.com/Sirupsen/logrus
   override:
     - cd $REPO && go install ./cmd/eris-cm
     - "tests/circle_test.sh | tee $CIRCLE_ARTIFACTS/output.log; test ${PIPESTATUS[0]} -eq 0"

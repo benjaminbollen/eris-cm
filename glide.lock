@@ -1,5 +1,5 @@
 hash: 8dd7b8200a6e6d5ddd83ca9deb61a1bb91728f8283a15659bbc28087b14cb34d
-updated: 2016-05-12T17:28:13.657397734+01:00
+updated: 2016-05-13T18:45:31.920911467+01:00
 imports:
 - name: github.com/agl/ed25519
   version: d2b94fd789ea21d12fac1a4443dd3a3f79cda72c
@@ -20,7 +20,7 @@ imports:
 - name: github.com/BurntSushi/toml
   version: 056c9bc7be7190eaa7715723883caffa5f8fa3e4
 - name: github.com/docker/docker
-  version: e9117578a7837eda31d690d5e51d09d43a6a8fca
+  version: a213a446d7828c54e9ce104b38e1adfd4827871e
   subpackages:
   - pkg/term
   - pkg/system
