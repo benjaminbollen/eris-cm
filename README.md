@@ -1,6 +1,7 @@
-[![Circle CI](https://circleci.com/gh/eris-ltd/eris-cm/tree/master.svg?style=svg)](https://circleci.com/gh/eris-ltd/eris-cm/tree/master)
-
-[![GoDoc](https://godoc.org/github.com/eris-cm?status.png)](https://godoc.org/github.com/eris-ltd/eris-cm)
+|[![GoDoc](https://godoc.org/github.com/eris-cm?status.png)](https://godoc.org/github.com/eris-ltd/eris-cm) | Linux |
+|---|-------|
+| Master | [![Circle CI](https://circleci.com/gh/eris-ltd/eris-cm/tree/master.svg?style=svg)](https://circleci.com/gh/eris-ltd/eris-cm/tree/master) |
+| Develop | [![Circle CI](https://circleci.com/gh/eris-ltd/eris-cm/tree/develop.svg?style=svg)](https://circleci.com/gh/eris-ltd/eris-cm/tree/develop) | 
 
 # Eris Chain Manager
 
