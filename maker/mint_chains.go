@@ -33,6 +33,13 @@ func MakeMintChain(name string, accounts []*definitions.Account) error {
 		if err := util.WriteGenesisFile(genesis.ChainID, genesis, account, len(accounts) == 1); err != nil {
 			return err
 		}
+		// TODO: [ben] we can expose seeds to be written into the configuration file
+		// here, but currently not used and we'll overwrite the configuration file
+		// with flag or environment variable in eris-db container
+		if err := util.WriteConfigurationFile(genesis.ChainID, account.Name, "",
+			len(accounts) == 1); err != nil {
+			return err
+		}
 	}
 	return nil
 }

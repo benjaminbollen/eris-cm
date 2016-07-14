@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/eris-ltd/eris-cm/configuration"
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/version"
 
@@ -173,6 +174,30 @@ func WriteGenesisFile(name string, genesis *definitions.MintGenesis, account *de
 
 func WritePrivVals(name string, account *definitions.Account, single bool) error {
 	return writer(account.MintKey, name, account.Name, "priv_validator.json", single)
+}
+
+func WriteConfigurationFile(chain_name, account_name, seeds string, single bool) error {
+	if account_name == "" { account_name = "anonymous_marmot" }
+	if chain_name == "" {
+		return fmt.Errorf("No chain name provided.")
+	}
+	var fileBytes []byte
+	var err error
+	if fileBytes, err = configuration.GetConfigurationFileBytes(chain_name,
+		account_name, seeds); err != nil {
+		return err
+	}
+	var file string
+	if !single {
+		file = filepath.Join(ChainsPath, chain_name, account_name, "config.toml")
+	} else {
+		file = filepath.Join(ChainsPath, chain_name, "config.toml")
+	}
+	log.WithField("path", file).Debug("Saving File.")
+	if err := WriteFile(string(fileBytes), file); err != nil {
+		return err
+	}
+	return nil
 }
 
 func SaveAccountType(thisActT *definitions.AccountType) error {
