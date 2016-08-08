@@ -1,4 +1,4 @@
 package version
 
 const NAME = "eris-cm"
-const VERSION = "0.12.0-rc2"
+const VERSION = "0.12.0-rc3"
