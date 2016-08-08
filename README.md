@@ -17,7 +17,7 @@ The Eris Chain Manager is a utility for performing complex operations on `eris c
 
 ## Background
 
-`eris-cm` is a set of high-level tooling for working with `eris chains`. It is similar in nature, design, and level as the `eris-pm` which is built to handle smart contract packages and other packages necessary for building blockchain backed applications.
+`eris-cm` is a high level tool for working with `eris chains`. It is similar in nature, design, and level as the `eris-pm` which is built to handle smart contract packages and other packages necessary for building blockchain backed applications. It is used to provide a harmonized interfacte to the modular components of the [eris](https://docs.erisindustries.com) open source platform.
 
 ## Installation
 
@@ -27,7 +27,7 @@ The Eris Chain Manager is a utility for performing complex operations on `eris c
 Should you want/desire/need to install this repository natively on your host make sure you have go installed and then:
 
 1. [Install go](https://golang.org/doc/install)
-2. Ensure you have gmp installed (sudo apt-get install libgmp3-dev || brew install gmp)
+2. Ensure you have `gmp` installed (`sudo apt-get install libgmp3-dev || brew install gmp`)
 3. `go get github.com/eris-ltd/eris-cm/cmd/eris-cm`
 
 ## Usage
