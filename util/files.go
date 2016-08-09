@@ -110,14 +110,36 @@ func SaveAccountResults(do *definitions.Do) error {
 // directory either so users can safely add additional account_types beyond the marmot
 // established defaults.
 func CheckDefaultTypes(erisPath, myPath string) error {
-	defaultTyps, err := filepath.Glob(filepath.Join(ErisGo, version.NAME, myPath, "*.toml"))
+	// by default the dockerimage will move the default files to /default
+	//   however if anyone installs by binary then these files will be located
+	//   in the repo.
+	defaultTypsPath := filepath.Join("/defaults", myPath, "*.toml")
+	if _, err := os.Stat(filepath.Dir(defaultTypsPath)); os.IsNotExist(err) {
+		log.WithField("path", defaultTypsPath).Warn("Default types path does not exist. Trying GOPATH.")
+		defaultTypsPath = filepath.Join(ErisGo, version.NAME, myPath, "*.toml")
+	}
+	if _, err := os.Stat(filepath.Dir(defaultTypsPath)); os.IsNotExist(err) {
+		log.WithField("path", defaultTypsPath).Info("Default types path does not exist. Exiting.")
+		return fmt.Errorf("Could not locate default directory for %s", myPath)
+	}
+
+	// files in the default location which is /defaults in the docker image and $GOPATH/src/github.com/.../
+	//   if binary install
+	defaultTyps, err := filepath.Glob(defaultTypsPath)
 	if err != nil {
 		return err
 	}
 
+	// these are files which are in ~/.eris/chains/XXXXX and imported to the data container
+	//   by cli
 	haveTyps, err := AccountTypesNames(erisPath, true)
 	if err != nil {
 		return err
+	}
+
+	// fail fast if there are not files present in either imported or in default directory
+	if len(defaultTyps) == 0 && len(haveTyps) == 0 {
+		return fmt.Errorf("There are no default or custom types to use.")
 	}
 
 	for _, file := range defaultTyps {
@@ -132,6 +154,10 @@ func CheckDefaultTypes(erisPath, myPath string) error {
 		}
 
 		if !itsThere {
+			log.WithFields(log.Fields{
+				"file": file,
+				"path": filepath.Join(erisPath, f),
+			}).Debug("Copying default file")
 			Copy(file, filepath.Join(erisPath, f))
 		}
 	}
