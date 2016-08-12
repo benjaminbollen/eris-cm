@@ -31,8 +31,8 @@ $ eris-cm make myChain --csv /path/to/csv -- will use the csv file to make your 
 		}
 
 		// drop default tomls into eris' location
-		util.CheckDefaultTypes(AccountsTypePath, "account_types")
-		util.CheckDefaultTypes(ChainTypePath, "chain_types")
+		IfExit(util.CheckDefaultTypes(AccountsTypePath, "account-types"))
+		IfExit(util.CheckDefaultTypes(ChainTypePath, "chain-types"))
 
 		keys.DaemonAddr = keysAddr
 
