@@ -22,27 +22,35 @@ import (
 	"text/template"
 )
 
+type ConfigServiceGeneral struct {
+	ErisDbImageName     string
+	UseDataContainer    bool
+	ExportedPorts       string
+	ContainerEntrypoint string
+}
+
 // TODO: [ben] increase the configurability upon need
 type ConfigChainGeneral struct {
-	AssertChainId string
-	ErisdbMajorVersion uint8
-	ErisdbMinorVersion uint8
+	AssertChainId       string
+	ErisdbMajorVersion  uint8
+	ErisdbMinorVersion  uint8
 	GenesisRelativePath string
 }
 
 type ConfigChainModule struct {
-	Name string
-	MajorVersion uint8
-	MinorVersion uint8
+	Name               string
+	MajorVersion       uint8
+	MinorVersion       uint8
 	ModuleRelativeRoot string
 }
 
 type ConfigTendermint struct {
-	Moniker string
-	Seeds string
+	Moniker  string
+	Seeds    string
 	FastSync bool
 }
 
+var serviceGeneralTemplate *template.Template
 var chainGeneralTemplate *template.Template
 var chainConsensusTemplate *template.Template
 var chainApplicationManagerTemplate *template.Template
@@ -50,6 +58,9 @@ var tendermintTemplate *template.Template
 
 func init() {
 	var err error
+	if serviceGeneralTemplate, err = template.New("serviceGeneral").Parse(sectionServiceGeneral); err != nil {
+		panic(err)
+	}
 	if chainGeneralTemplate, err = template.New("chainGeneral").Parse(sectionChainGeneral); err != nil {
 		panic(err)
 	}
@@ -64,35 +75,42 @@ func init() {
 	}
 }
 
-// NOTE: [ben] for 0.12.0-rc2 we only have a single configuration path
+// NOTE: [ben] for 0.12.0-rc3 we only have a single configuration path
 // with Tendermint in-process as the consensus engine and ErisMint
 // in-process as the application manager, so we hard-code the few
 // parameters that are already templated.
 // Let's learn to walk before we can run.
 func GetConfigurationFileBytes(chainId, moniker, seeds string) ([]byte,
 	error) {
+
+	erisdbService := &ConfigServiceGeneral{
+		ErisDbImageName:     "quay.io/eris/erisdb:0.12.0-rc3",
+		UseDataContainer:    true,
+		ExportedPorts:       "[ \"1337\", \"46656\", \"46657\" ]",
+		ContainerEntrypoint: "erisdb-wrapper",
+	}
 	erisdbChain := &ConfigChainGeneral{
-		AssertChainId: chainId,
-		ErisdbMajorVersion : uint8(0),
-		ErisdbMinorVersion : uint8(12),
-		GenesisRelativePath : "genesis.json",
+		AssertChainId:       chainId,
+		ErisdbMajorVersion:  uint8(0),
+		ErisdbMinorVersion:  uint8(12),
+		GenesisRelativePath: "genesis.json",
 	}
 	chainConsensusModule := &ConfigChainModule{
-		Name : "tendermint",
-		MajorVersion : uint8(0),
-		MinorVersion : uint8(6),
-		ModuleRelativeRoot : "tendermint",
+		Name:               "tendermint",
+		MajorVersion:       uint8(0),
+		MinorVersion:       uint8(6),
+		ModuleRelativeRoot: "tendermint",
 	}
 	chainApplicationManagerModule := &ConfigChainModule{
-		Name : "erismint",
-		MajorVersion : uint8(0),
-		MinorVersion : uint8(12),
-		ModuleRelativeRoot : "erismint",
+		Name:               "erismint",
+		MajorVersion:       uint8(0),
+		MinorVersion:       uint8(12),
+		ModuleRelativeRoot: "erismint",
 	}
 	tendermintModule := &ConfigTendermint{
-		Moniker : moniker,
-		Seeds : seeds,
-		FastSync : false,
+		Moniker:  moniker,
+		Seeds:    seeds,
+		FastSync: false,
 	}
 
 	// NOTE: [ben] according to StackOverflow appending strings with copy is
@@ -103,6 +121,11 @@ func GetConfigurationFileBytes(chainId, moniker, seeds string) ([]byte,
 
 	// write copyright header
 	buffer.WriteString(headerCopyright)
+	// write section [service]
+	if err := serviceGeneralTemplate.Execute(&buffer, erisdbService); err != nil {
+		return nil, fmt.Errorf("Failed to write template service general for %s: %s",
+			chainId, err)
+	}
 	// write section [chain]
 	if err := chainGeneralTemplate.Execute(&buffer, erisdbChain); err != nil {
 		return nil, fmt.Errorf("Failed to write template chain general for %s: %s",
@@ -111,8 +134,7 @@ func GetConfigurationFileBytes(chainId, moniker, seeds string) ([]byte,
 	// write separator chain consensus
 	buffer.WriteString(separatorChainConsensus)
 	// write section [chain.consensus]
-	if err := chainConsensusTemplate.Execute(&buffer, chainConsensusModule);
-		err != nil {
+	if err := chainConsensusTemplate.Execute(&buffer, chainConsensusModule); err != nil {
 		return nil, fmt.Errorf("Failed to write template chain consensus for %s: %s",
 			chainId, err)
 	}
