@@ -247,7 +247,10 @@ func SaveAccountType(thisActT *definitions.AccountType) error {
 }
 
 func convertExportPortsSliceToString(exportPorts []string) string {
-	return "[" + strings.Join(exportPorts[:], ",") + "]"
+	if len(exportPorts) == 0 {
+		return ""
+	}
+	return `[ "` + strings.Join(exportPorts[:], `", "`) + `" ]`
 }
 
 func writer(toWrangle interface{}, chain_name, account_name, fileBase string, single bool) error {
