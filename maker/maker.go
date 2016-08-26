@@ -104,7 +104,8 @@ func maker(do *definitions.Do, consensus_type string, accountTypes []*definition
 		return err
 	}
 
-	return MakeMintChain(do.Name, do.Accounts)
+	return MakeMintChain(do.Name, do.Accounts, do.ChainImageName,
+		do.UseDataContainer, do.ExportedPorts, do.ContainerEntrypoint)
 }
 
 func assembleTypesWizard(accountT *definitions.AccountType, tokenIze bool) error {

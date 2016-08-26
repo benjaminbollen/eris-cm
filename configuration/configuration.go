@@ -23,7 +23,7 @@ import (
 )
 
 type ConfigServiceGeneral struct {
-	ErisDbImageName     string
+	ChainImageName      string
 	UseDataContainer    bool
 	ExportedPorts       string
 	ContainerEntrypoint string
@@ -80,14 +80,14 @@ func init() {
 // in-process as the application manager, so we hard-code the few
 // parameters that are already templated.
 // Let's learn to walk before we can run.
-func GetConfigurationFileBytes(chainId, moniker, seeds string) ([]byte,
-	error) {
+func GetConfigurationFileBytes(chainId, moniker, seeds string, chainImageName string,
+	useDataContainer bool, exportedPortsString, containerEntrypoint string) ([]byte, error) {
 
 	erisdbService := &ConfigServiceGeneral{
-		ErisDbImageName:     "quay.io/eris/erisdb:0.12.0-rc3",
-		UseDataContainer:    true,
-		ExportedPorts:       "[ \"1337\", \"46656\", \"46657\" ]",
-		ContainerEntrypoint: "erisdb-wrapper",
+		ChainImageName:      chainImageName,
+		UseDataContainer:    useDataContainer,
+		ExportedPorts:       exportedPortsString,
+		ContainerEntrypoint: containerEntrypoint,
 	}
 	erisdbChain := &ConfigChainGeneral{
 		AssertChainId:       chainId,

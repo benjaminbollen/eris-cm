@@ -7,7 +7,8 @@ import (
 	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
 )
 
-func MakeMintChain(name string, accounts []*definitions.Account) error {
+func MakeMintChain(name string, accounts []*definitions.Account, chainImageName string,
+	useDataContainer bool, exportedPorts []string, containerEntrypoint string) error {
 	genesis := definitions.BlankGenesis()
 	genesis.ChainID = name
 	for _, account := range accounts {
@@ -37,7 +38,8 @@ func MakeMintChain(name string, accounts []*definitions.Account) error {
 		// here, but currently not used and we'll overwrite the configuration file
 		// with flag or environment variable in eris-db container
 		if err := util.WriteConfigurationFile(genesis.ChainID, account.Name, "",
-			len(accounts) == 1); err != nil {
+			len(accounts) == 1, chainImageName, useDataContainer, exportedPorts,
+			containerEntrypoint); err != nil {
 			return err
 		}
 	}

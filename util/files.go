@@ -202,15 +202,19 @@ func WritePrivVals(name string, account *definitions.Account, single bool) error
 	return writer(account.MintKey, name, account.Name, "priv_validator.json", single)
 }
 
-func WriteConfigurationFile(chain_name, account_name, seeds string, single bool) error {
-	if account_name == "" { account_name = "anonymous_marmot" }
+func WriteConfigurationFile(chain_name, account_name, seeds string, single bool,
+	chainImageName string, useDataContainer bool, exportedPorts []string, containerEntrypoint string) error {
+	if account_name == "" {
+		account_name = "anonymous_marmot"
+	}
 	if chain_name == "" {
 		return fmt.Errorf("No chain name provided.")
 	}
 	var fileBytes []byte
 	var err error
 	if fileBytes, err = configuration.GetConfigurationFileBytes(chain_name,
-		account_name, seeds); err != nil {
+		account_name, seeds, chainImageName, useDataContainer,
+		convertExportPortsSliceToString(exportedPorts), containerEntrypoint); err != nil {
 		return err
 	}
 	var file string
@@ -240,6 +244,10 @@ func SaveAccountType(thisActT *definitions.AccountType) error {
 		return err
 	}
 	return nil
+}
+
+func convertExportPortsSliceToString(exportPorts []string) string {
+	return "[" + strings.Join(exportPorts[:], ",") + "]"
 }
 
 func writer(toWrangle interface{}, chain_name, account_name, fileBase string, single bool) error {
