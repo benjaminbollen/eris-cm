@@ -12,6 +12,12 @@ type Do struct {
 	Output       bool
 	Accounts     []*Account
 	Result       string
+
+	// service definitions
+	ChainImageName      string
+	UseDataContainer    bool
+	ExportedPorts       []string
+	ContainerEntrypoint string
 }
 
 func NowDo() *Do {

@@ -26,4 +26,4 @@ RUN chown --recursive $USER:$USER /home/$USER
 VOLUME /home/$USER/.eris
 WORKDIR /home/$USER/.eris
 USER $USER
-ENTRYPOINT ["eris-cm" ]
+ENTRYPOINT ["eris-cm"]
