@@ -36,6 +36,7 @@ const headerCopyright = `# Copyright 2015, 2016 Eris Industries (UK) Ltd.
 `
 
 const sectionServiceGeneral = `[service]
+# NOTE: this section is read by Eris tooling, and ignored by eris-db.
 # Image specifies the image name eris-cli needs to pull 
 # for running the chain.
 image = "{{.ChainImageName}}"
@@ -47,6 +48,15 @@ ports = {{.ExportedPorts}}
 # Entrypoint points to the default action to execute
 # in the chain container.
 entry_point = "{{.ContainerEntrypoint}}"
+
+`
+
+const sectionServiceDependencies = `[dependencies]
+# NOTE: this section is read by Eris tooling, and ignored by eris-db.
+# Eris-db expects these services to be available; eric-cli tooling will
+# automatically set these services up for you.
+# Services to boot with/required by the chain
+services = [ "keys" ]
 
 `
 

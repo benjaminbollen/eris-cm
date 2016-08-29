@@ -121,16 +121,22 @@ func GetConfigurationFileBytes(chainId, moniker, seeds string, chainImageName st
 
 	// write copyright header
 	buffer.WriteString(headerCopyright)
+
 	// write section [service]
 	if err := serviceGeneralTemplate.Execute(&buffer, erisdbService); err != nil {
 		return nil, fmt.Errorf("Failed to write template service general for %s: %s",
 			chainId, err)
 	}
+	// write section for service dependencies; this is currently a static section
+	// with a fixed dependency on eris-keys
+	buffer.WriteString(sectionServiceDependencies)
+
 	// write section [chain]
 	if err := chainGeneralTemplate.Execute(&buffer, erisdbChain); err != nil {
 		return nil, fmt.Errorf("Failed to write template chain general for %s: %s",
 			chainId, err)
 	}
+
 	// write separator chain consensus
 	buffer.WriteString(separatorChainConsensus)
 	// write section [chain.consensus]
@@ -138,6 +144,7 @@ func GetConfigurationFileBytes(chainId, moniker, seeds string, chainImageName st
 		return nil, fmt.Errorf("Failed to write template chain consensus for %s: %s",
 			chainId, err)
 	}
+
 	// write separator chain application manager
 	buffer.WriteString(separatorChainApplicationManager)
 	// write section [chain.consensus]
@@ -146,18 +153,22 @@ func GetConfigurationFileBytes(chainId, moniker, seeds string, chainImageName st
 		return nil, fmt.Errorf("Failed to write template chain application manager for %s: %s",
 			chainId, err)
 	}
+
 	// write separator servers
 	buffer.WriteString(separatorServerConfiguration)
 	// TODO: [ben] upon necessity replace this with template too
 	// write static section servers
 	buffer.WriteString(sectionServers)
+
 	// write separator modules
 	buffer.WriteString(separatorModules)
+
 	// write section module Tendermint
 	if err := tendermintTemplate.Execute(&buffer, tendermintModule); err != nil {
 		return nil, fmt.Errorf("Failed to write template tendermint for %s, moniker %s: %s",
 			chainId, moniker, err)
 	}
+
 	// write static section erismint
 	buffer.WriteString(sectionErisMint)
 
