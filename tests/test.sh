@@ -216,7 +216,7 @@ run_test(){
   eris chains stop --force $uuid
   if [ ! "$ci" = true ]
   then
-    eris chains rm --file --data $uuid
+    eris chains rm --data $uuid
   fi
   rm -rf $HOME/.eris/scratch/data/$uuid
   rm -rf $chains_dir/$uuid
@@ -351,8 +351,8 @@ test_teardown(){
 echo "Hello! I'm the marmot that tests the eris-cm tooling"
 start=`pwd`
 cd $repo
-test_build
 test_setup
+test_build
 echo
 
 # ---------------------------------------------------------------------------
