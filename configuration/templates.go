@@ -226,7 +226,7 @@ private_validator_file = "priv_validator.json"
   fast_sync = {{.FastSync}}
   # database backend to use for Tendermint. Supported "leveldb" and "memdb".
   db_backend = "leveldb"
-  # logging level. Suppored "debug", "notice", "info" [ben: incomplete, see Tendermint]
+  # logging level. Supported "error" < "warn" < "notice" < "info" < "debug"
   log_level = "info"
   # node local address
   node_laddr = "0.0.0.0:46656"
