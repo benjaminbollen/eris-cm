@@ -22,7 +22,8 @@ import (
 
 func TestConfigurationFileBytes(t *testing.T) {
 	// TODO: [ben] parse written bytes for comparison with expected parameters
-	if _, err := GetConfigurationFileBytes("simplechain", "marmot", "noseeds"); err != nil {
+	if _, err := GetConfigurationFileBytes("simplechain", "marmot", "noseeds", "eris-db:latest",
+		true, "", "erisdb-wrapper"); err != nil {
 		t.Errorf("Error writing configuration file bytes: %s", err)
 	}
 }
