@@ -2,8 +2,8 @@
 # ----------------------------------------------------------
 # PURPOSE
 
-# This is the test manager for epm to be ran from circle ci.
-# It will run the testing sequence for epm using docker.
+# This is the test manager for eris-cm to be ran from circle ci.
+# It will run the testing sequence for eris-cm using docker.
 
 # ----------------------------------------------------------
 # REQUIREMENTS

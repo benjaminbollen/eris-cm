@@ -39,3 +39,9 @@ deployment:
       - tests/build_tool.sh
       - docker push quay.io/eris/eris-cm
       - docs/build.sh
+  backwardssupport:
+    branch: release-0.11
+    commands:
+      - tests/build_tool.sh
+      - docker push quay.io/eris/eris-cm
+      - docs/build.sh
