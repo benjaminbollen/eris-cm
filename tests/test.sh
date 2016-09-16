@@ -201,7 +201,7 @@ run_test(){
     return 1
   fi
   dir_to_use=$chains_dir/$uuid/$direct
-  eris chains new $uuid --dir $uuid/$direct
+  eris chains start $uuid --init-dir $uuid/$direct
   if [ $? -ne 0 ]
   then
     test_exit=1

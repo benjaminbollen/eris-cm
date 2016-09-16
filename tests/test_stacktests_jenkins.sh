@@ -141,7 +141,7 @@ run_test(){
   echo "Running test ..."
   dir_to_use=$chains_dir/$uuid/$direct
   echo "New-ing chain from $dir_to_use"
-  eris chains new $uuid --dir $uuid/$direct
+  eris chains start $uuid --init-dir $uuid/$direct
   if [ $? -ne 0 ]
   then
     test_exit=1
