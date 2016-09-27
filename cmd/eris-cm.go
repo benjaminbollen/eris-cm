@@ -27,7 +27,7 @@ var ErisCMCmd = &cobra.Command{
 
 Made with <3 by Eris Industries.
 
-Complete documentation is available at https://docs.erisindustries.com
+Complete documentation is available at https://monax.io/docs/documentation
 ` + "\nVersion:\n  " + VERSION,
 
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
