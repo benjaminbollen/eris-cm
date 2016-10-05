@@ -17,7 +17,7 @@ The Eris Chain Manager is a utility for performing complex operations on `eris c
 
 ## Background
 
-`eris-cm` is a high level tool for working with `eris chains`. It is similar in nature, design, and level as the `eris-pm` which is built to handle smart contract packages and other packages necessary for building blockchain backed applications. It is used to provide a harmonized interfacte to the modular components of the [eris](https://docs.erisindustries.com) open source platform.
+`eris-cm` is a high level tool for working with `eris chains`. It is similar in nature, design, and level as the `eris-pm` which is built to handle smart contract packages and other packages necessary for building blockchain backed applications. It is used to provide a harmonized interfacte to the modular components of the [eris](https://monax.io/docs/documentation/) open source platform.
 
 ## Installation
 
@@ -35,9 +35,9 @@ Should you want/desire/need to install this repository natively on your host mak
 ```
 The Eris Chain Manager is a utility for performing complex operations on eris chains.
 
-Made with <3 by Eris Industries.
+Made with <3 by Monax Industries.
 
-Complete documentation is available at https://docs.erisindustries.com
+Complete documentation is available at https://monax.io/docs/documentation/
 
 Version:
   0.12.0
