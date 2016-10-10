@@ -42,11 +42,13 @@ their purposes in a very easy manner.
 
 The defaults provided by eris:chain_manager should be thought of as simply
 that, defaults, rather than as restrictive ("we only get these") manner.
+
+See also [chain_types](chain_types) specification.
 `
 
 const CHAIN_TYPES_INTRO = `In order to reduce the complexity of dealing with permissioning
 of chains, eris chains uses the concept of chain_types. Chain Types are
-bundles of [account_types](../account_types). They define the number of
+bundles of [account_types](account_types). They define the number of
 each account type which is required to make the given chain_type.
 
 In the future as we continue to add more optionality to eris chains at
