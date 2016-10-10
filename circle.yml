@@ -24,12 +24,10 @@ test:
   pre:
     - go get github.com/Masterminds/glide
     - cd $REPO && glide install
-    # - rm -rf $REPO/vendor/github.com/eris-ltd/common/vendor/github.com/spf13/cobra
-    # - rm -rf $REPO/vendor/github.com/eris-ltd/common/vendor/github.com/Sirupsen/logrus
   override:
     - cd $REPO && go install ./cmd/eris-cm
     - glide novendor | xargs go test
-    # - "tests/circle_test.sh | tee $CIRCLE_ARTIFACTS/output.log; test ${PIPESTATUS[0]} -eq 0"
+    - "tests/circle_test.sh | tee $CIRCLE_ARTIFACTS/output.log; test ${PIPESTATUS[0]} -eq 0"
 
 deployment:
   master:
@@ -37,12 +35,12 @@ deployment:
     commands:
       - tests/build_tool.sh
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
-      - docker push quay.io/eris/eris-cm
+      - docker push quay.io/eris/cm
       - docs/build.sh master
   develop:
     branch: develop
     commands:
       - tests/build_tool.sh
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
-      - docker push quay.io/eris/eris-cm
+      - docker push quay.io/eris/cm
       - docs/build.sh

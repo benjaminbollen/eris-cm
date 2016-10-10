@@ -27,7 +27,7 @@ else
 fi
 branch=${CIRCLE_BRANCH:=master}
 branch=${branch/-/_}
-testimage=${testimage:="quay.io/eris/eris-cm"}
+testimage=${testimage:="quay.io/eris/cm"}
 
 release_min=$(cat $repo/version/version.go | tail -n 1 | cut -d \  -f 4 | tr -d '"')
 release_maj=$(echo $release_min | cut -d . -f 1-2)
