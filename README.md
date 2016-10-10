@@ -3,9 +3,9 @@
 |[![GoDoc](https://godoc.org/github.com/eris-cm?status.png)](https://godoc.org/github.com/eris-ltd/eris-cm) | Linux |
 |---|-------|
 | Master | [![Circle CI](https://circleci.com/gh/eris-ltd/eris-cm/tree/master.svg?style=svg)](https://circleci.com/gh/eris-ltd/eris-cm/tree/master) |
-| Develop | [![Circle CI](https://circleci.com/gh/eris-ltd/eris-cm/tree/develop.svg?style=svg)](https://circleci.com/gh/eris-ltd/eris-cm/tree/develop) | 
+| Develop | [![Circle CI](https://circleci.com/gh/eris-ltd/eris-cm/tree/develop.svg?style=svg)](https://circleci.com/gh/eris-ltd/eris-cm/tree/develop) |
 
-The Eris Chain Manager is a utility for performing complex operations on `eris chains`. This command is exposed through [eris-cli](https://github.com/eris-ltd/eris-cli), the entry point for the Eris Platform.
+The Eris Chain Manager is a utility for performing complex operations on `eris chains`. This command is exposed through [eris-cli](https://monax.io/docs/documentation/cli), the entry point for the Eris Platform.
 
 ## Table of Contents
 
@@ -17,11 +17,11 @@ The Eris Chain Manager is a utility for performing complex operations on `eris c
 
 ## Background
 
-`eris-cm` is a high level tool for working with `eris chains`. It is similar in nature, design, and level as the `eris-pm` which is built to handle smart contract packages and other packages necessary for building blockchain backed applications. It is used to provide a harmonized interfacte to the modular components of the [eris](https://monax.io/docs/documentation/) open source platform.
+`eris-cm` is a high level tool for working with `eris chains`. It is similar in nature, design, and level as the `eris-pm` which is built to handle smart contract packages and other packages necessary for building blockchain backed applications. It is used to provide a harmonized interface to the modular components of the [eris](https://monax.io/docs/documentation) open source platform.
 
 ## Installation
 
-`eris-cm` is intended to be used by the `eris chains make` command via [eris-cli](https://github.com/eris-ltd/eris-cli), which runs a temporary docker container to expose its functionality.
+`eris-cm` is intended to be used by the `eris chains` command via [eris-cli](https://monax.io/docs/documentation/cli/latest/eris_chains/).
 
 ### For Developers
 Should you want/desire/need to install this repository natively on your host make sure you have go installed and then:
