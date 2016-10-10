@@ -1,5 +1,5 @@
-hash: 287725b71bbb4e32eec8b5a9ef43e2e25c9f34a7f012af9e01a0c4978c7bdb85
-updated: 2016-10-10T16:27:17.812725299+02:00
+hash: 80b4b4479642dda9c8242099bae08138f6628bf301f3c6ad958e722d487271ce
+updated: 2016-10-10T16:39:55.26904285+02:00
 imports:
 - name: github.com/bugsnag/bugsnag-go
   version: 718a5c3648c101c24adc20b7d3fe0be7af35a17a
@@ -13,7 +13,6 @@ imports:
   version: 244a29bda27f25b00dd0cdc64a5e0b8e0bfcd369
   subpackages:
   - go/common
-  - go/log
 - name: github.com/eris-ltd/eris-keys
   version: c94d6ac4cb2fe1ce1b5185e78e2936b5b4f1aa4d
   subpackages:
@@ -26,7 +25,7 @@ imports:
 - name: github.com/eris-ltd/eris-logger
   version: cb5a0fa6ec4162413cfd5abf070d4c508b30541d
 - name: github.com/eris-ltd/eris-pm
-  version: f5724b559c9d123c3d53fbfb44eb46d25ee1e7e9
+  version: 0c358b0073d97d2a8ae83b737ccf395c1e416160
 - name: github.com/fsnotify/fsnotify
   version: 944cff21b3baf3ced9a880365682152ba577d348
 - name: github.com/go-stack/stack

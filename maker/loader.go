@@ -40,7 +40,7 @@ func LoadAccountType(fileName string) (*definitions.AccountType, error) {
 	}
 
 	// marshall file
-	if err := accountType.Marshal(typ); err != nil {
+	if err := accountType.Unmarshal(typ); err != nil {
 		return nil, fmt.Errorf("\nSorry, the marmots could not figure that account types file out.\nPlease check your account type definition file is properly formatted.\nERROR =>\t\t\t%v", err)
 	}
 
@@ -58,7 +58,7 @@ func LoadChainTypes(fileName string) (*definitions.ChainType, error) {
 	}
 
 	// marshall file
-	if err := chainType.Marshal(typ); err != nil {
+	if err := chainType.Unmarshal(typ); err != nil {
 		return nil, fmt.Errorf("\nSorry, the marmots could not figure that chain types file out.\nPlease check your chain type definition file is properly formatted.\nERROR =>\t\t\t%v", err)
 	}
 

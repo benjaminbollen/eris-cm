@@ -11,6 +11,8 @@ import (
 	"github.com/eris-ltd/eris-cm/util"
 
 	log "github.com/Sirupsen/logrus"
+
+	common "github.com/eris-ltd/common/go/common"
 )
 
 var (
@@ -37,7 +39,7 @@ func MakeChain(do *definitions.Do) error {
 }
 
 func makeWizard(do *definitions.Do) error {
-	proceed, err := util.GetBoolResponse(ChainsMakeWelcome(), true, os.Stdin)
+	proceed, err := common.GetBoolResponse(ChainsMakeWelcome(), true, os.Stdin)
 	log.WithField("=>", proceed).Debug("What the marmots heard")
 	if err != nil {
 		return err
@@ -50,7 +52,7 @@ func makeWizard(do *definitions.Do) error {
 
 	prelims := make(map[string]bool)
 	for e, q := range ChainsMakePrelimQuestions() {
-		prelims[e], err = util.GetBoolResponse(q, false, os.Stdin)
+		prelims[e], err = common.GetBoolResponse(q, false, os.Stdin)
 		log.WithField("=>", prelims[e]).Debug("What the marmots heard")
 		if err != nil {
 			return err
@@ -110,14 +112,14 @@ func maker(do *definitions.Do, consensus_type string, accountTypes []*definition
 
 func assembleTypesWizard(accountT *definitions.AccountType, tokenIze bool) error {
 	var err error
-	accountT.Number, err = util.GetIntResponse(AccountTypeIntro(accountT), accountT.Number, reader)
+	accountT.Number, err = common.GetIntResponse(AccountTypeIntro(accountT), accountT.Number, reader)
 	log.WithField("=>", accountT.Number).Debug("What the marmots heard")
 	if err != nil {
 		return err
 	}
 
 	if tokenIze && accountT.Number > 0 {
-		accountT.Tokens, err = util.GetIntResponse(AccountTypeTokens(accountT), accountT.Tokens, reader)
+		accountT.Tokens, err = common.GetIntResponse(AccountTypeTokens(accountT), accountT.Tokens, reader)
 		log.WithField("=>", accountT.Tokens).Debug("What the marmots heard")
 		if err != nil {
 			return err
@@ -125,7 +127,7 @@ func assembleTypesWizard(accountT *definitions.AccountType, tokenIze bool) error
 	}
 
 	if accountT.Perms["bond"] == 1 && accountT.Number > 0 {
-		accountT.ToBond, err = util.GetIntResponse(AccountTypeToBond(accountT), accountT.ToBond, reader)
+		accountT.ToBond, err = common.GetIntResponse(AccountTypeToBond(accountT), accountT.ToBond, reader)
 		log.WithField("=>", accountT.ToBond).Debug("What the marmots heard")
 		if err != nil {
 			return err
@@ -145,27 +147,27 @@ func addManualAccountType(accountT []*definitions.AccountType, iterator int) ([]
 	thisActT.Name = fmt.Sprintf("%s_%02d", "manual", iterator)
 	iterator++
 
-	thisActT.Number, err = util.GetIntResponse(AccountTypeManualIntro(), 1, reader)
+	thisActT.Number, err = common.GetIntResponse(AccountTypeManualIntro(), 1, reader)
 	if err != nil {
 		return nil, err
 	}
 
-	thisActT.Tokens, err = util.GetIntResponse(AccountTypeManualTokens(), 0, reader)
+	thisActT.Tokens, err = common.GetIntResponse(AccountTypeManualTokens(), 0, reader)
 	if err != nil {
 		return nil, err
 	}
 
-	thisActT.ToBond, err = util.GetIntResponse(AccountTypeManualToBond(), 0, reader)
+	thisActT.ToBond, err = common.GetIntResponse(AccountTypeManualToBond(), 0, reader)
 	if err != nil {
 		return nil, err
 	}
 
 	thisActT.Perms = make(map[string]int)
 	for _, perm := range AccountTypeManualPerms() {
-		thisActT.Perms[perm], err = util.GetIntResponse(AccountTypeManualPermsQuestion(perm), 0, reader)
+		thisActT.Perms[perm], err = common.GetIntResponse(AccountTypeManualPermsQuestion(perm), 0, reader)
 	}
 
-	name, err := util.GetStringResponse(AccountTypeManualSave(), "", reader)
+	name, err := common.GetStringResponse(AccountTypeManualSave(), "", reader)
 	if name != "" {
 		thisActT.Name = name
 		if err := util.SaveAccountType(thisActT); err != nil {
@@ -174,7 +176,7 @@ func addManualAccountType(accountT []*definitions.AccountType, iterator int) ([]
 	}
 	accountT = append(accountT, thisActT)
 
-	again, err := util.GetBoolResponse(AccountTypeManualAnother(), false, reader)
+	again, err := common.GetBoolResponse(AccountTypeManualAnother(), false, reader)
 	if err != nil {
 		return nil, err
 	}

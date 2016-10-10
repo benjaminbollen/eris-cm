@@ -3,7 +3,7 @@ import:
 - package: github.com/eris-ltd/common
   subpackages:
   - go/common
-  - go/log
+- package: github.com/eris-ltd/eris-logger
 - package: github.com/eris-ltd/eris-keys
   version: develop
   subpackages:
