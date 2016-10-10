@@ -18,7 +18,7 @@ var RENDER_DIR = fmt.Sprintf("./docs/eris-cm/%s/", version.VERSION)
 
 var SPECS_DIR = "./docs/"
 
-var BASE_URL = fmt.Sprintf("https://docs.erisindustries.com/documentation/eris-cm/%s/", version.VERSION)
+var BASE_URL = fmt.Sprintf("https://monax.io/docs/documentation/cm/%s/", version.VERSION)
 
 const FRONT_MATTER = `---
 

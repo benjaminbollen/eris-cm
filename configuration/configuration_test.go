@@ -1,4 +1,4 @@
-// Copyright 2015, 2016 Eris Industries (UK) Ltd.
+// Copyright 2015, 2016 Monax Industries (UK) Ltd.
 // This file is part of Eris-RT
 
 // Eris-RT is free software: you can redistribute it and/or modify

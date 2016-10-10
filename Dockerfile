@@ -1,5 +1,5 @@
 FROM quay.io/eris/build
-MAINTAINER Eris Industries <support@erisindustries.com>
+MAINTAINER Monax Industries <support@monax.io>
 
 #-----------------------------------------------------------------------------
 # install eris-cm
