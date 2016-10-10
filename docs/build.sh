@@ -5,7 +5,7 @@
 
 base_name=eris-cm
 user_name=eris-ltd
-docs_site=docs.erisindustries.com
+docs_site=monax.io/docs
 
 # -------------------------------------------------------------------
 # Set vars (usually shouldn't be changed)

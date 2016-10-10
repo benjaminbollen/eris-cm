@@ -25,11 +25,9 @@ var ErisCMCmd = &cobra.Command{
 	Short: "The Eris Chain Manager is a utility for performing complex operations on eris chains",
 	Long: `The Eris Chain Manager is a utility for performing complex operations on eris chains.
 
-Made with <3 by Eris Industries.
+Made with <3 by Monax Industries.
 
-Complete documentation is available at https://docs.erisindustries.com
-` + "\nVersion:\n  " + VERSION,
-
+Complete documentation is available at https://monax.io/docs/documentation/cm/`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		// logger stuff
 		log.SetFormatter(logger.ErisFormatter{})
