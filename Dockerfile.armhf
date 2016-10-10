@@ -1,4 +1,4 @@
-FROM quay.io/eris/build
+FROM quay.io/eris/build:arm
 MAINTAINER Monax Industries <support@monax.io>
 
 #-----------------------------------------------------------------------------
@@ -13,9 +13,8 @@ RUN mkdir /defaults && \
   mv $REPO/chain-types /defaults/. && \
   chown --recursive $USER:$USER /defaults
 
-
 # ----------------------------------------------------------------------------
-# mintgen [to be deprecated]
+# mintgen
 RUN go get github.com/eris-ltd/mint-client/mintgen
 WORKDIR $GOPATH/src/github.com/eris-ltd/mint-client/mintgen
 RUN go build -o $INSTALL_BASE/mintgen

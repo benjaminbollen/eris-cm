@@ -6,6 +6,7 @@
 # Folders
 _obj
 _test
+vendor
 
 # Architecture specific extensions/prefixes
 *.[568vq]
@@ -25,5 +26,7 @@ _testmain.go
 
 docs/account_types.md
 docs/chain_types.md
-docs/eris-cmvendor
-vendor
+docs/eris-cm
+
+# Temporary files, saved imtermediatories
+*.swp

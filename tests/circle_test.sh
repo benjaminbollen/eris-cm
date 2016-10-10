@@ -54,7 +54,7 @@ docker version
 echo
 
 # ----------------------------------------------------------
-# Run tests
+# Run integration tests
 
 tests/test.sh
 test_exit=$?
