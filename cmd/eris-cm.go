@@ -26,7 +26,8 @@ var ErisCMCmd = &cobra.Command{
 
 Made with <3 by Monax Industries.
 
-Complete documentation is available at https://monax.io/docs/documentation/cm/`,
+Complete documentation is available at https://monax.io/docs/documentation/cm/
+` + "\nVersion:\n  " + VERSION,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		log.SetLevel(log.WarnLevel)
 		if do.Verbose {

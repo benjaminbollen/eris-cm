@@ -24,9 +24,9 @@ _testmain.go
 *.test
 *.prof
 
-docs/account_types.md
-docs/chain_types.md
-docs/eris-cm
+docs/specs/account_types.md
+docs/specs/chain_types.md
+docs/documentation
 
 # Temporary files, saved imtermediatories
 *.swp
