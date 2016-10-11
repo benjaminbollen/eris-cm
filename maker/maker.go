@@ -291,13 +291,16 @@ func assembleTypesChainsTypesDefs(accountT []*definitions.AccountType, do *defin
 	}
 
 	log.WithFields(log.Fields{
-		"chainType":         do.ChainType,
-		"chainTypeAccounts": chainTypeAccounts,
+		"chainType": do.ChainType,
 	}).Debug("Chain Type Loaded")
 
 	for act, num := range chainTypeAccounts.AccountTypes {
 		for _, thisActT := range accountT {
-			if thisActT.Name == act {
+			// we match against the accountType we get from the chain-type file
+			// which will be upper case, however the current yaml unmarshal sequence
+			// seems to lower case this for some odd reason.
+			// TODO: see if burntsushi's toml renderer will handle this better in the future
+			if thisActT.Name == strings.Title(act) {
 				thisActT.Number = num
 				log.WithFields(log.Fields{
 					"name":   thisActT.Name,
