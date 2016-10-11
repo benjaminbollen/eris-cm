@@ -6,12 +6,15 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"text/template"
 
+	"github.com/eris-ltd/common/go/common"
+	"github.com/eris-ltd/common/go/docs"
 	commands "github.com/eris-ltd/eris-cm/cmd"
 	"github.com/eris-ltd/eris-cm/version"
 
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/BurntSushi/toml"
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
+	"github.com/BurntSushi/toml"
+	"github.com/spf13/cobra"
 )
 
 var RENDER_DIR = fmt.Sprintf("./docs/eris-cm/%s/", version.VERSION)
@@ -56,18 +59,6 @@ the consensus engine and application levels of the eris chain more
 functionality will be added to chain types.
 `
 
-func main() {
-	os.MkdirAll(RENDER_DIR, 0755)
-	generateAccountTypes()
-	generateChainTypes()
-	eris_cm := commands.ErisCMCmd
-	commands.InitErisChainManager()
-	commands.AddGlobalFlags()
-	commands.AddCommands()
-	specs := common.GenerateSpecs(SPECS_DIR, RENDER_DIR, FRONT_MATTER)
-	common.GenerateTree(eris_cm, RENDER_DIR, specs, FRONT_MATTER, BASE_URL)
-}
-
 type AccountT struct {
 	Name        string `mapstructure:"name" json:"name" yaml:"name" toml:"name"`
 	Definition  string `mapstructure:"definition" json:"definition" yaml:"definition" toml:"definition"`
@@ -80,9 +71,24 @@ type ChainT struct {
 	AccountTypes map[string]int `mapstructure:"account_types" json:"account_types" yaml:"account_types" toml:"account_types"`
 }
 
+// Repository maintainers should customize the next two lines.
+var Description = "Chain Manager Tooling"                                   // should match the docs site name
+var RenderDir = fmt.Sprintf("./docs/documentation/cm/%s/", version.VERSION) // should be the "shortversion..."
+
+// The below variables should be updated only if necessary.
+var Specs = []*docs.Entry{}
+var Examples = []*docs.Entry{}
+var SpecsDir = "./docs/specs"
+var ExamplesDir = "./docs/examples"
+
+type Cmd struct {
+	Command     *cobra.Command
+	Entry       *docs.Entry
+	Description string
+}
+
 func generateAccountTypes() {
-	dir, _ := os.Getwd()
-	generatedFile := filepath.Join(dir, "docs", "account_types.md")
+	generatedFile := filepath.Join("docs", "specs", "account_types.md")
 	accountDescriptions := []string{"# Default eris chains Account Types", ACCOUNT_TYPES_INTRO}
 	accountTypeFiles, _ := filepath.Glob(filepath.Join(common.ErisGo, "eris-cm", "account_types", "*"))
 	for _, file := range accountTypeFiles {
@@ -98,8 +104,7 @@ func generateAccountTypes() {
 }
 
 func generateChainTypes() {
-	dir, _ := os.Getwd()
-	generatedFile := filepath.Join(dir, "docs", "chain_types.md")
+	generatedFile := filepath.Join("docs", "specs", "chain_types.md")
 	chainDescriptions := []string{"# Default eris chains Chain Types", CHAIN_TYPES_INTRO}
 	chainTypeFiles, _ := filepath.Glob(filepath.Join(common.ErisGo, "eris-cm", "chain_types", "*"))
 	for _, file := range chainTypeFiles {
@@ -116,4 +121,92 @@ func generateChainTypes() {
 		chainDescriptions = append(chainDescriptions, numbers)
 	}
 	ioutil.WriteFile(generatedFile, []byte(strings.Join(chainDescriptions, "\n\n")), 0644)
+}
+
+func RenderFiles(cmdRaw *cobra.Command, tmpl *template.Template) error {
+	this_entry := &docs.Entry{
+		Title:          cmdRaw.CommandPath(),
+		Specifications: Specs,
+		Examples:       Examples,
+		BaseURL:        strings.Replace(RenderDir, ".", "", 1),
+		Template:       tmpl,
+		FileName:       docs.GenerateFileName(RenderDir, cmdRaw.CommandPath()),
+	}
+
+	cmd := &Cmd{
+		Command:     cmdRaw,
+		Entry:       this_entry,
+		Description: Description,
+	}
+
+	for _, command := range cmd.Command.Commands() {
+		RenderFiles(command, tmpl)
+	}
+
+	if !cmd.Command.HasParent() {
+		entries := append(cmd.Entry.Specifications, cmd.Entry.Examples...)
+		for _, entry := range entries {
+			entry.Specifications = cmd.Entry.Specifications
+			entry.Examples = cmd.Entry.Examples
+			entry.CmdEntryPoint = cmd.Entry.Title
+			entry.BaseURL = cmd.Entry.BaseURL
+			if err := docs.RenderEntry(entry); err != nil {
+				return err
+			}
+		}
+	}
+
+	outFile, err := os.Create(cmd.Entry.FileName)
+	if err != nil {
+		return err
+	}
+	defer outFile.Close()
+
+	err = cmd.Entry.Template.Execute(outFile, cmd)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func main() {
+	// Repository maintainers should populate the top level command object.
+	cm := commands.ErisCMCmd
+	commands.InitErisChainManager()
+	commands.AddGlobalFlags()
+	commands.AddCommands()
+
+	// Make the proper directory.
+	var err error
+	if _, err = os.Stat(RenderDir); os.IsNotExist(err) {
+		err = os.MkdirAll(RenderDir, 0755)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	generateAccountTypes()
+	generateChainTypes()
+
+	// Generate specs and examples files.
+	Specs, err = docs.GenerateEntries(SpecsDir, (RenderDir + "specifications/"), Description)
+	if err != nil {
+		panic(err)
+	}
+	Examples, err = docs.GenerateEntries(ExamplesDir, (RenderDir + "examples/"), Description)
+	if err != nil {
+		panic(err)
+	}
+
+	// Get template from docs generator.
+	tmpl, err := docs.GenerateCommandsTemplate()
+	if err != nil {
+		panic(err)
+	}
+
+	// Render the templates.
+	if err = RenderFiles(cm, tmpl); err != nil {
+		panic(err)
+	}
 }

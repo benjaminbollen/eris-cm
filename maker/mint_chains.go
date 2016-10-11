@@ -4,7 +4,7 @@ import (
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/util"
 
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
+	log "github.com/eris-ltd/eris-logger"
 )
 
 func MakeMintChain(name string, accounts []*definitions.Account, chainImageName string,

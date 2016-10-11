@@ -11,9 +11,9 @@ import (
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/version"
 
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/BurntSushi/toml"
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	. "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
+	"github.com/BurntSushi/toml"
+	log "github.com/eris-ltd/eris-logger"
+	. "github.com/eris-ltd/common/go/common"
 )
 
 // XXX: this is temporary until eris-keys.js is more tightly integrated with eris-contracts.js

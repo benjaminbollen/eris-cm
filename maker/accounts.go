@@ -7,8 +7,8 @@ import (
 
 	"github.com/eris-ltd/eris-cm/definitions"
 
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	keys "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/eris-keys/eris-keys"
+	log "github.com/eris-ltd/eris-logger"
+	keys "github.com/eris-ltd/eris-keys/eris-keys"
 )
 
 func MakeAccounts(name, chainType string, accountTypes []*definitions.AccountType) ([]*definitions.Account, error) {

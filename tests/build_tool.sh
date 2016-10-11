@@ -2,9 +2,9 @@
 # ----------------------------------------------------------
 # PURPOSE
 
-# This is the build script for eris-chainmaker. It will build the tool
-# into docker containers in a reliable and predicatable
-# manner.
+# This is the build script for the eris stack. It will
+# build the tool into docker containers in a reliable and
+# predicatable manner.
 
 # ----------------------------------------------------------
 # REQUIREMENTS
@@ -17,29 +17,47 @@
 # build_tool.sh
 
 # ----------------------------------------------------------
-# Set defaults
+
+TARGET=eris-cm
+IMAGE=quay.io/eris/cm
+
+set -e
+
+if [ "$JENKINS_URL" ] || [ "$CIRCLE_BRANCH" ]
+then
+  REPO=`pwd`
+  CI="true"
+else
+  REPO=$GOPATH/src/github.com/eris-ltd/$TARGET
+fi
+
+release_min=$(cat $REPO/version/version.go | tail -n 1 | cut -d \  -f 4 | tr -d '"')
+release_maj=$(echo $release_min | cut -d . -f 1-2)
+
+# Build
+docker build -t $IMAGE:build $REPO
+docker run --rm --entrypoint cat $IMAGE:build /usr/local/bin/$TARGET > $REPO/"$TARGET"_build_artifact
+
+#-----------------------------------------------------------------------------
+# install mintgen [to be deprecated]
+docker run --rm --entrypoint cat $IMAGE:build /usr/local/bin/mintgen > $REPO/mintgen
+# [end to be deprecated]
+#-----------------------------------------------------------------------------
+
+docker build -t $IMAGE:$release_min -f Dockerfile.deploy $REPO
+
+# Cleanup
+rm $REPO/"$TARGET"_build_artifact
+rm $REPO/mintgen
+
+# Extra Tags
+if [[ "$branch" = "master" ]]
+then
+  docker tag -f $IMAGE:$release_min $IMAGE:$release_maj
+  docker tag -f $IMAGE:$release_min $IMAGE:latest
+fi
 
 if [ "$CIRCLE_BRANCH" ]
 then
-  repo=`pwd`
-else
-  repo=$GOPATH/src/github.com/eris-ltd/eris-cm
-fi
-branch=${CIRCLE_BRANCH:=master}
-branch=${branch/-/_}
-testimage=${testimage:="quay.io/eris/eris-cm"}
-
-release_min=$(cat $repo/version/version.go | tail -n 1 | cut -d \  -f 4 | tr -d '"')
-release_maj=$(echo $release_min | cut -d . -f 1-2)
-
-# ---------------------------------------------------------------------------
-# Go!
-
-if [[ "$branch" = "master" ]]
-then
-  docker build -t $testimage:latest $repo
-  docker tag $testimage:latest $testimage:$release_maj
-  docker tag $testimage:latest $testimage:$release_min
-else
-  docker build -t $testimage:$release_min $repo
+  docker tag -f $IMAGE:$release_min $IMAGE:latest
 fi
