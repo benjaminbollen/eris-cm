@@ -1,30 +1,32 @@
 FROM quay.io/eris/build
-MAINTAINER Monax Industries <support@monax.io>
+MAINTAINER Monax <support@monax.io>
+
+# Install eris-cm, a go app that manages chains
+ENV TARGET eris-cm
+ENV REPO $GOPATH/src/github.com/eris-ltd/$TARGET
+
+COPY ./glide.yaml $REPO/glide.yaml
+COPY ./glide.lock $REPO/glide.lock
+WORKDIR $REPO
+RUN glide install
+
+COPY . $REPO/.
+RUN cd $REPO/cmd/$TARGET && \
+  go build --ldflags '-extldflags "-static"' -o $INSTALL_BASE/$TARGET && \
+  unset TARGET && \
+  unset REPO
 
 #-----------------------------------------------------------------------------
-# install eris-cm
+# install mintgen [to be deprecated]
+ENV ERIS_GEN_MINT_REPO github.com/eris-ltd/mint-client
+ENV ERIS_GEN_MINT_SRC_PATH $GOPATH/src/$ERIS_GEN_MINT_REPO
 
-ENV REPO $GOPATH/src/github.com/eris-ltd/eris-cm
-COPY . $REPO
-WORKDIR $REPO/cmd/eris-cm
-RUN go build -o $INSTALL_BASE/eris-cm
-RUN mkdir /defaults && \
-  mv $REPO/account-types /defaults/. && \
-  mv $REPO/chain-types /defaults/. && \
-  chown --recursive $USER:$USER /defaults
+WORKDIR $ERIS_GEN_MINT_SRC_PATH
 
-
-# ----------------------------------------------------------------------------
-# mintgen [to be deprecated]
-RUN go get github.com/eris-ltd/mint-client/mintgen
-WORKDIR $GOPATH/src/github.com/eris-ltd/mint-client/mintgen
-RUN go build -o $INSTALL_BASE/mintgen
-
+RUN git clone --quiet https://$ERIS_GEN_MINT_REPO . \
+  && git checkout --quiet master \
+  && go build --ldflags '-extldflags "-static"' -o $INSTALL_BASE/mintgen ./mintgen \
+  && unset ERIS_GEN_MINT_REPO \
+  && unset ERIS_GEN_MINT_SRC_PATH
+# [end to be deprecated]
 #-----------------------------------------------------------------------------
-# persist data, set user
-RUN rm -rf $GOPATH
-RUN chown --recursive $USER:$USER /home/$USER
-VOLUME /home/$USER/.eris
-WORKDIR /home/$USER/.eris
-USER $USER
-ENTRYPOINT ["eris-cm"]

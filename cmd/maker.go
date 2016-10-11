@@ -8,9 +8,9 @@ import (
 	"github.com/eris-ltd/eris-cm/util"
 	"github.com/eris-ltd/eris-cm/version"
 
-	log "github.com/eris-ltd/eris-logger"
 	. "github.com/eris-ltd/common/go/common"
 	keys "github.com/eris-ltd/eris-keys/eris-keys"
+	log "github.com/eris-ltd/eris-logger"
 	"github.com/spf13/cobra"
 )
 
@@ -120,7 +120,7 @@ func defaultZip() bool {
 // Chain service defaults
 
 func defaultChainImageName() string {
-	const imageHost string = "quay.io/eris/erisdb:" + version.VERSION
+	const imageHost string = "quay.io/eris/db:" + version.VERSION
 	return setDefaultString("ERIS_CHAINMANAGER_IMAGE_NAME", imageHost)
 }
 
@@ -135,7 +135,8 @@ func defaultExportedPorts() []string {
 		[]string{"1337", "46656", "46657"})
 }
 
+// [csk] this functionality has been removed from the eris:db container
 func defaultContainterEntrypoint() string {
 	return setDefaultString("ERIS_CHAINMANAGER_CONTAINER_ENTRYPOINT",
-		"erisdb-wrapper")
+		"")
 }

@@ -45,9 +45,9 @@ image = "{{.ChainImageName}}"
 data_container = {{.UseDataContainer}}
 # Specify a list of ports that need to be exported on the container.
 ports = {{.ExportedPorts}}
-# Entrypoint points to the default action to execute
+{{ if ne .ContainerEntrypoint "" }}# Entrypoint points to the default action to execute
 # in the chain container.
-entry_point = "{{.ContainerEntrypoint}}"
+entry_point = "{{.ContainerEntrypoint}}"{{ end }}
 
 `
 
