@@ -28,7 +28,6 @@ test:
   override:
     - cd $REPO && go install ./cmd/eris-cm
     - cd $REPO && glide novendor | xargs go test
-    - cd $REPO && go install
     - "tests/circle_test.sh | tee $CIRCLE_ARTIFACTS/output.log; test ${PIPESTATUS[0]} -eq 0"
 
 deployment:
