@@ -8,9 +8,8 @@ import (
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/version"
 
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	logger "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/log"
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/spf13/cobra"
+	log "github.com/eris-ltd/eris-logger"
+	"github.com/spf13/cobra"
 )
 
 const VERSION = version.VERSION
@@ -25,14 +24,11 @@ var ErisCMCmd = &cobra.Command{
 	Short: "The Eris Chain Manager is a utility for performing complex operations on eris chains",
 	Long: `The Eris Chain Manager is a utility for performing complex operations on eris chains.
 
-Made with <3 by Eris Industries.
+Made with <3 by Monax Industries.
 
-Complete documentation is available at https://docs.erisindustries.com
+Complete documentation is available at https://monax.io/docs/documentation/cm/
 ` + "\nVersion:\n  " + VERSION,
-
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		// logger stuff
-		log.SetFormatter(logger.ErisFormatter{})
 		log.SetLevel(log.WarnLevel)
 		if do.Verbose {
 			log.SetLevel(log.InfoLevel)

@@ -4,10 +4,11 @@ import (
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/util"
 
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
+	log "github.com/eris-ltd/eris-logger"
 )
 
-func MakeMintChain(name string, accounts []*definitions.Account) error {
+func MakeMintChain(name string, accounts []*definitions.Account, chainImageName string,
+	useDataContainer bool, exportedPorts []string, containerEntrypoint string) error {
 	genesis := definitions.BlankGenesis()
 	genesis.ChainID = name
 	for _, account := range accounts {
@@ -31,6 +32,14 @@ func MakeMintChain(name string, accounts []*definitions.Account) error {
 			return err
 		}
 		if err := util.WriteGenesisFile(genesis.ChainID, genesis, account, len(accounts) == 1); err != nil {
+			return err
+		}
+		// TODO: [ben] we can expose seeds to be written into the configuration file
+		// here, but currently not used and we'll overwrite the configuration file
+		// with flag or environment variable in eris-db container
+		if err := util.WriteConfigurationFile(genesis.ChainID, account.Name, "",
+			len(accounts) == 1, chainImageName, useDataContainer, exportedPorts,
+			containerEntrypoint); err != nil {
 			return err
 		}
 	}

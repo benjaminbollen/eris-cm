@@ -71,9 +71,9 @@ Don't ask us, you are the one that wanted "manual" :-)
 
 For more on eris chains permissions see here:
 
-https://docs.erisindustries.com/documentation/eris-db-permissions/
+https://monax.io/docs/documentation/db/latest/eris-db/
 
-How many keys do you want in *this* manual group? (You can make more than one manual group) `
+How many keys do you want in *this* manual group? (You can make more than one manual group)`
 }
 
 func AccountTypeManualTokens() string {

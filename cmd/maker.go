@@ -6,11 +6,12 @@ import (
 
 	"github.com/eris-ltd/eris-cm/maker"
 	"github.com/eris-ltd/eris-cm/util"
+	"github.com/eris-ltd/eris-cm/version"
 
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	. "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
-	keys "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/eris-keys/eris-keys"
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/spf13/cobra"
+	. "github.com/eris-ltd/common/go/common"
+	keys "github.com/eris-ltd/eris-keys/eris-keys"
+	log "github.com/eris-ltd/eris-logger"
+	"github.com/spf13/cobra"
 )
 
 var MakerCmd = &cobra.Command{
@@ -31,8 +32,8 @@ $ eris-cm make myChain --csv /path/to/csv -- will use the csv file to make your 
 		}
 
 		// drop default tomls into eris' location
-		util.CheckDefaultTypes(AccountsTypePath, "account_types")
-		util.CheckDefaultTypes(ChainTypePath, "chain_types")
+		IfExit(util.CheckDefaultTypes(AccountsTypePath, "account-types"))
+		IfExit(util.CheckDefaultTypes(ChainTypePath, "chain-types"))
 
 		keys.DaemonAddr = keysAddr
 
@@ -57,6 +58,12 @@ func AddMakerFlags() {
 	MakerCmd.PersistentFlags().StringVarP(&do.CSV, "csv-file", "s", defaultCsvFiles(), "csv file in the form `account-type,number,tokens,toBond,perms; default respects $ERIS_CHAINMANAGER_CSVFILE")
 	MakerCmd.PersistentFlags().BoolVarP(&do.Tarball, "tar", "r", defaultTarball(), "instead of making directories in ~/.chains, make tarballs; incompatible with and overrides zip; default respects $ERIS_CHAINMANAGER_TARBALLS")
 	MakerCmd.PersistentFlags().BoolVarP(&do.Zip, "zip", "z", defaultZip(), "instead of making directories in ~/.chains, make zip files; default respects $ERIS_CHAINMANAGER_ZIPFILES")
+
+	// Service related command flags
+	MakerCmd.PersistentFlags().StringVarP(&do.ChainImageName, "image-name", "", defaultChainImageName(), "specify the chain image name; default respects $ERIS_CHAINMANAGER_CHAIN_IMAGE_NAME")
+	MakerCmd.PersistentFlags().BoolVarP(&do.UseDataContainer, "use-data-container", "", defaultUseDataContainer(), "set whether to attach the data container to the chain; default respects $ERIS_CHAINMANAGER_USE_DATA_CONTAINER")
+	MakerCmd.PersistentFlags().StringSliceVarP(&do.ExportedPorts, "ports", "", defaultExportedPorts(), "list the ports that need to be exported on the container; default respects $ERIS_CHAINMANAGER_EXPORTED_PORTS")
+	MakerCmd.PersistentFlags().StringVarP(&do.ContainerEntrypoint, "entrypoint", "", defaultContainterEntrypoint(), "specifiy the entrypoint for the chain service; default respects $ERIS_CHAINMANAGER_CONTAINER_ENTRYPOINT")
 }
 
 //----------------------------------------------------
@@ -108,4 +115,28 @@ func defaultTarball() bool {
 
 func defaultZip() bool {
 	return setDefaultBool("ERIS_CHAINMANAGER_ZIPFILES", false)
+}
+
+// Chain service defaults
+
+func defaultChainImageName() string {
+	const imageHost string = "quay.io/eris/db:" + version.VERSION
+	return setDefaultString("ERIS_CHAINMANAGER_IMAGE_NAME", imageHost)
+}
+
+func defaultUseDataContainer() bool {
+	return setDefaultBool("ERIS_CHAINMANAGER_USE_DATA_CONTAINER", true)
+}
+
+// TODO: [ben] this is technical debt; these ports need to be detailed controlled
+// and match the ports detailed in the configuration file itself.
+func defaultExportedPorts() []string {
+	return setDefaultStringSlice("ERIS_CHAINMANAGER_EXPORTED_PORTS",
+		[]string{"1337", "46656", "46657"})
+}
+
+// [csk] this functionality has been removed from the eris:db container
+func defaultContainterEntrypoint() string {
+	return setDefaultString("ERIS_CHAINMANAGER_CONTAINER_ENTRYPOINT",
+		"")
 }

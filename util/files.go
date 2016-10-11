@@ -7,12 +7,13 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/eris-ltd/eris-cm/configuration"
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/version"
 
-	"github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/BurntSushi/toml"
-	log "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	. "github.com/eris-ltd/eris-cm/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
+	"github.com/BurntSushi/toml"
+	log "github.com/eris-ltd/eris-logger"
+	. "github.com/eris-ltd/common/go/common"
 )
 
 // XXX: this is temporary until eris-keys.js is more tightly integrated with eris-contracts.js
@@ -110,14 +111,36 @@ func SaveAccountResults(do *definitions.Do) error {
 // directory either so users can safely add additional account_types beyond the marmot
 // established defaults.
 func CheckDefaultTypes(erisPath, myPath string) error {
-	defaultTyps, err := filepath.Glob(filepath.Join(ErisGo, version.NAME, myPath, "*.toml"))
+	// by default the dockerimage will move the default files to /default
+	//   however if anyone installs by binary then these files will be located
+	//   in the repo.
+	defaultTypsPath := filepath.Join("/defaults", myPath, "*.toml")
+	if _, err := os.Stat(filepath.Dir(defaultTypsPath)); os.IsNotExist(err) {
+		log.WithField("path", defaultTypsPath).Warn("Default types path does not exist. Trying GOPATH.")
+		defaultTypsPath = filepath.Join(ErisGo, version.NAME, myPath, "*.toml")
+	}
+	if _, err := os.Stat(filepath.Dir(defaultTypsPath)); os.IsNotExist(err) {
+		log.WithField("path", defaultTypsPath).Info("Default types path does not exist. Exiting.")
+		return fmt.Errorf("Could not locate default directory for %s", myPath)
+	}
+
+	// files in the default location which is /defaults in the docker image and $GOPATH/src/github.com/.../
+	//   if binary install
+	defaultTyps, err := filepath.Glob(defaultTypsPath)
 	if err != nil {
 		return err
 	}
 
+	// these are files which are in ~/.eris/chains/XXXXX and imported to the data container
+	//   by cli
 	haveTyps, err := AccountTypesNames(erisPath, true)
 	if err != nil {
 		return err
+	}
+
+	// fail fast if there are not files present in either imported or in default directory
+	if len(defaultTyps) == 0 && len(haveTyps) == 0 {
+		return fmt.Errorf("There are no default or custom types to use.")
 	}
 
 	for _, file := range defaultTyps {
@@ -132,6 +155,10 @@ func CheckDefaultTypes(erisPath, myPath string) error {
 		}
 
 		if !itsThere {
+			log.WithFields(log.Fields{
+				"file": file,
+				"path": filepath.Join(erisPath, f),
+			}).Debug("Copying default file")
 			Copy(file, filepath.Join(erisPath, f))
 		}
 	}
@@ -175,6 +202,34 @@ func WritePrivVals(name string, account *definitions.Account, single bool) error
 	return writer(account.MintKey, name, account.Name, "priv_validator.json", single)
 }
 
+func WriteConfigurationFile(chain_name, account_name, seeds string, single bool,
+	chainImageName string, useDataContainer bool, exportedPorts []string, containerEntrypoint string) error {
+	if account_name == "" {
+		account_name = "anonymous_marmot"
+	}
+	if chain_name == "" {
+		return fmt.Errorf("No chain name provided.")
+	}
+	var fileBytes []byte
+	var err error
+	if fileBytes, err = configuration.GetConfigurationFileBytes(chain_name,
+		account_name, seeds, chainImageName, useDataContainer,
+		convertExportPortsSliceToString(exportedPorts), containerEntrypoint); err != nil {
+		return err
+	}
+	var file string
+	if !single {
+		file = filepath.Join(ChainsPath, chain_name, account_name, "config.toml")
+	} else {
+		file = filepath.Join(ChainsPath, chain_name, "config.toml")
+	}
+	log.WithField("path", file).Debug("Saving File.")
+	if err := WriteFile(string(fileBytes), file); err != nil {
+		return err
+	}
+	return nil
+}
+
 func SaveAccountType(thisActT *definitions.AccountType) error {
 	writer, err := os.Create(filepath.Join(AccountsTypePath, fmt.Sprintf("%s.toml", thisActT.Name)))
 	defer writer.Close()
@@ -189,6 +244,13 @@ func SaveAccountType(thisActT *definitions.AccountType) error {
 		return err
 	}
 	return nil
+}
+
+func convertExportPortsSliceToString(exportPorts []string) string {
+	if len(exportPorts) == 0 {
+		return ""
+	}
+	return `[ "` + strings.Join(exportPorts[:], `", "`) + `" ]`
 }
 
 func writer(toWrangle interface{}, chain_name, account_name, fileBase string, single bool) error {
