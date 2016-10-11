@@ -7,7 +7,7 @@ import (
 
 	"github.com/eris-ltd/eris-cm/definitions"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/eris-ltd/eris-logger"
 	keys "github.com/eris-ltd/eris-keys/eris-keys"
 )
 

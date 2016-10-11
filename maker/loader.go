@@ -8,7 +8,7 @@ import (
 	"github.com/eris-ltd/eris-cm/definitions"
 	"github.com/eris-ltd/eris-cm/util"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/eris-ltd/eris-logger"
 	. "github.com/eris-ltd/common/go/common"
 	"github.com/spf13/viper"
 )

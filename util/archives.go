@@ -11,7 +11,7 @@ import (
 
 	"github.com/eris-ltd/eris-cm/definitions"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/eris-ltd/eris-logger"
 	. "github.com/eris-ltd/common/go/common"
 )
 

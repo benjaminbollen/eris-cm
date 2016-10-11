@@ -1,5 +1,5 @@
-hash: 80b4b4479642dda9c8242099bae08138f6628bf301f3c6ad958e722d487271ce
-updated: 2016-10-10T16:39:55.26904285+02:00
+hash: 61be8158c8e8d34525f5df7ae6bd9f85ab26cce0ee0f43a360bd6d767e4077ec
+updated: 2016-10-11T15:31:47.876370652+02:00
 imports:
 - name: github.com/bugsnag/bugsnag-go
   version: 718a5c3648c101c24adc20b7d3fe0be7af35a17a
@@ -10,11 +10,12 @@ imports:
 - name: github.com/BurntSushi/toml
   version: 99064174e013895bbd9b025c31100bd1d9b590ca
 - name: github.com/eris-ltd/common
-  version: 244a29bda27f25b00dd0cdc64a5e0b8e0bfcd369
+  version: 937a48c167d7dedead6e6ab959a9ec163133f05e
   subpackages:
   - go/common
+  - go/docs
 - name: github.com/eris-ltd/eris-keys
-  version: c94d6ac4cb2fe1ce1b5185e78e2936b5b4f1aa4d
+  version: dbd72454cdb83c8baee21b24ba3fd6661a452cd9
   subpackages:
   - crypto
   - eris-keys
@@ -25,9 +26,9 @@ imports:
 - name: github.com/eris-ltd/eris-logger
   version: cb5a0fa6ec4162413cfd5abf070d4c508b30541d
 - name: github.com/eris-ltd/eris-pm
-  version: 0c358b0073d97d2a8ae83b737ccf395c1e416160
+  version: ad124de3b4317403e91328c3469ae94be6e8f4e5
 - name: github.com/fsnotify/fsnotify
-  version: 944cff21b3baf3ced9a880365682152ba577d348
+  version: 629574ca2a5df945712d3079857300b5e4da0236
 - name: github.com/go-stack/stack
   version: 100eb0c0a9c5b306ca2fb4f165df21d80ada4b82
 - name: github.com/hashicorp/hcl
@@ -69,8 +70,6 @@ imports:
   version: a62a804a8a009876ca59105f7899938a1349f4b3
 - name: github.com/rs/xhandler
   version: ed27b6fd65218132ee50cd95f38474a3d8a2cd12
-- name: github.com/Sirupsen/logrus
-  version: 3ec0642a7fb6488f65b06f9040adc67e3990296a
 - name: github.com/spf13/afero
   version: 52e4a6cfac46163658bd4f123c49b6ee7dc75f78
   subpackages:
@@ -79,11 +78,11 @@ imports:
 - name: github.com/spf13/cast
   version: 2580bc98dc0e62908119e4737030cc2fdfc45e4c
 - name: github.com/spf13/cobra
-  version: 9c28e4bbd74e5c3ed7aacbc552b2cab7cfdfe744
+  version: ec2fe7859914a5106dcab4e7901633d959bfc2f4
 - name: github.com/spf13/jwalterweatherman
   version: 33c24e77fb80341fe7130ee7c594256ff08ccc46
 - name: github.com/spf13/pflag
-  version: b83537d79690b75cac5e021b036ae16792bf0f20
+  version: bf8481a6aebc13a8aab52e699ffe2e79771f5a3f
 - name: github.com/spf13/viper
   version: 51f23d1f1c56a7773ae8f2cfd038f7996ecc9ac2
 - name: github.com/tendermint/ed25519
@@ -101,7 +100,7 @@ imports:
   subpackages:
   - term
 - name: github.com/tendermint/tendermint
-  version: be3592adf62c8e318587eb78ec7dafe8878690af
+  version: 302bbc5dbd8277b849060d07e046c33e745e9a1a
 - name: github.com/wayn3h0/go-uuid
   version: 71e8f6f01226f577139a7b4f9c8161f7311d3bac
   subpackages:
@@ -114,7 +113,7 @@ imports:
   - internal/timebased
   - internal/version
 - name: golang.org/x/crypto
-  version: d172538b2cfce0c13cee31e647d0367aa8cd2486
+  version: dc7f3af03ebbba4b0c90f8d95c682dba7d4c70f5
   subpackages:
   - pbkdf2
   - ripemd160
@@ -125,11 +124,11 @@ imports:
   - ed25519
   - ed25519/internal/edwards25519
 - name: golang.org/x/net
-  version: f4b625ec9b21d620bb5ce57f2dfc3e08ca97fce6
+  version: cf4effbb9db1f3ef07f7e1891402991b6afbb276
   subpackages:
   - context
 - name: golang.org/x/sys
-  version: 8d1157a435470616f975ff9bb013bea8d0962067
+  version: 67f277b6fe017c42fc3b4a445edc999dd99edd58
   subpackages:
   - unix
 - name: golang.org/x/text

@@ -12,7 +12,7 @@ import (
 	"github.com/eris-ltd/eris-cm/version"
 
 	"github.com/BurntSushi/toml"
-	log "github.com/Sirupsen/logrus"
+	log "github.com/eris-ltd/eris-logger"
 	. "github.com/eris-ltd/common/go/common"
 )
 
