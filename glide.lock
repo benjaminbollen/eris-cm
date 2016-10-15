@@ -10,7 +10,7 @@ imports:
 - name: github.com/BurntSushi/toml
   version: 99064174e013895bbd9b025c31100bd1d9b590ca
 - name: github.com/eris-ltd/common
-  version: 937a48c167d7dedead6e6ab959a9ec163133f05e
+  version: 8ca15f5455104403db4202c995e2f6e161654c02
   subpackages:
   - go/common
   - go/docs

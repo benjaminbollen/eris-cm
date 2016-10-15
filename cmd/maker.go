@@ -25,7 +25,7 @@ $ eris-cm make myChain --account-types=Root:1,Developer:0,Validator:0,Participan
 $ eris-cm make myChain --csv /path/to/csv -- will use the csv file to make your chain named myChain using eris-keys defaults (non-interactive)`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		// loop through chains directories to make sure they exist
-		for _, d := range ChainsDirs {
+		for _, d := range []string{ChainsPath, AccountsTypePath, ChainTypePath} {
 			if _, err := os.Stat(d); os.IsNotExist(err) {
 				os.MkdirAll(d, 0755)
 			}
