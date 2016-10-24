@@ -264,9 +264,18 @@ func assembleTypesFlags(accountT []*definitions.AccountType, do *definitions.Do)
 		tmp := strings.Split(acctT, ":")
 		act := tmp[0]
 
-		num, err := strconv.Atoi(tmp[1])
-		if err != nil {
-			return err
+		var (
+			err error
+
+			// If the number of account types is missing,
+			// assuming 1.
+			num int = 1
+		)
+		if len(tmp) > 1 {
+			num, err = strconv.Atoi(tmp[1])
+			if err != nil {
+				return err
+			}
 		}
 
 		for _, thisActT := range accountT {
